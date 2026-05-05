@@ -1,0 +1,59 @@
+metadata:
+  created_by: Lauge Naur Hansen
+  created_at: 2026-05-05
+  version: 1.0
+
+categories:
+  - name: groceries
+    description: Supermarkets and food stores
+    aliases:
+      - netto
+      - rema
+      - coop
+      - føtex
+      - bilka
+      - superbrugsen
+      - lidl
+      - brugsen
+
+  - name: restaurants
+    description: Places to eat and dine
+    aliases:
+      - restaurant
+      - cafe
+
+  - name: transport
+    description: Transportation services and providers
+    aliases:
+      - movia
+      - dsb
+      - metro
+      - bus
+      - train
+      - taxi
+      - uber
+      - lyft
+
+  - name: subscription
+    description: Subscription-based services
+    aliases:
+      - netflix
+      - spotify
+      - apple music
+      - disney+
+      - hulu
+      - amazon prime
+      - berlingske
+      - politiken
+      - jyllands-posten
+      - information
+
+  - name: utilities
+    description: Utility services such as electricity, water, and internet
+    aliases:
+      - electricity
+      - water
+      - internet
+      - gas
+      - phone
+      - mobile
