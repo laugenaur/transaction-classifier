@@ -1,0 +1,211 @@
+metadata:
+  created_by: Lauge Naur Hansen
+  created_at: 2026-06-02
+  version: 2.0
+
+# transfer is not a model class — it is detected programmatically by matching
+# amounts across accounts within a date window before inference runs.
+rule_based:
+  - name: transfer
+    description: Internal transfer between own bank accounts
+
+# These Spiir categories are excluded from training data entirely.
+# Udlæg: reimbursements — any description can appear here, no learnable signal.
+# Ignorer: explicit user tag in Spiir.
+excluded_spiir:
+  - Udlæg
+  - Ignorer
+  - Kontooverførsel
+
+# Transactions whose cleaned description matches any of these regex patterns
+# are routed to manual review — neither trained on nor inferred by the model.
+# MobilePay: recipient is a person name, no learnable category signal in text.
+manual_review_patterns:
+  - "^mobilepay"
+
+# Predictions with max softmax probability below this threshold are not
+# auto-labeled — they go to manual review as "unknown".
+# Above 0.70: ~78% of transactions at 98% accuracy on current data.
+# Raise to route more conservatively; lower to accept more auto-labels.
+inference_confidence_threshold: 0.70
+
+categories:
+  - name: groceries
+    description: Supermarkets, food stores and convenience stores
+    aliases:
+      - netto
+      - rema
+      - coop
+      - føtex
+      - bilka
+      - superbrugsen
+      - lidl
+      - aldi
+      - brugsen
+    spiir_map:
+      - Dagligvarer
+      - Kiosk, bager & specialbutikker
+
+  - name: dining
+    description: Restaurants, cafes, canteens, takeaway and fast food
+    aliases:
+      - restaurant
+      - cafe
+      - wolt
+      - just eat
+      - mcdonalds
+    spiir_map:
+      - Bar, cafe & restaurant
+      - Fastfood & takeaway
+      - Kantine- & frokostordning
+
+  - name: transport
+    description: Public transport, fuel, parking, vehicles and vehicle expenses
+    aliases:
+      - movia
+      - dsb
+      - metro
+      - taxi
+      - uber
+      - shell
+      - circle k
+      - q8
+    spiir_map:
+      - Bus, tog, færge o.l.
+      - Brændstof
+      - Parkering
+      - Taxi
+      - Anden transport
+      - Bil-, MC-, bådlån o.l.
+      - Ejerafgift/grøn afgift
+      - Værksted & reservedele
+
+  - name: housing
+    description: Rent, mortgage, utilities, renovation and home furnishings
+    aliases:
+      - husleje
+    spiir_map:
+      - Boliglån/husleje
+      - El, vand, varme & renovation
+      - Ombygning & vedligehold
+      - Møbler & boligudstyr
+      - Andre boligudgifter
+      - Have & planter
+
+  - name: shopping
+    description: Clothing, electronics, hobbies and leisure goods
+    aliases:
+      - zalando
+      - h&m
+      - zara
+    spiir_map:
+      - Tøj, sko & accessories
+      - Elektronik & computerudstyr
+      - Hobby & sportsudstyr
+      - Spil & legetøj
+
+  - name: health
+    description: Pharmacy, medical treatment and personal care
+    aliases:
+      - apotek
+    spiir_map:
+      - Apotek & medicin
+      - Behandling & læger
+      - Frisør & personlig pleje
+      - Briller & kontaktlinser
+
+  - name: entertainment
+    description: Culture, sports, leisure activities and travel
+    aliases:
+      - ticketmaster
+    spiir_map:
+      - Film, musik & læsestof
+      - Biograf, koncerter & forlystelser
+      - Sport & fritid
+      - Ferieaktiviteter
+      - Fly & Hotel
+      - Sommerhus & camping
+
+  - name: subscriptions
+    description: Digital subscriptions, streaming and phone/internet plans
+    aliases:
+      - netflix
+      - spotify
+      - apple
+      - disney
+      - amazon
+      - berlingske
+      - politiken
+    spiir_map:
+      - Online services & software
+      - TV & streaming
+      - Telefoni & internet
+
+  - name: memberships
+    description: Union fees, unemployment insurance and associations
+    aliases:
+      - a-kasse
+      - fagforening
+    spiir_map:
+      - Fagforening & a-kasse
+      - Foreninger & kontingenter
+
+  - name: insurance
+    description: Home, contents, life, health and vehicle insurance
+    aliases: []
+    spiir_map:
+      - Husforsikring
+      - Indbo- & familieforsikring
+      - Livs- & ulykkesforsikring
+      - Sundheds- & sygeforsikring
+      - Bilforsikring & autohjælp
+      - Rejseforsikring
+
+  - name: children
+    description: Baby products, childcare and institution fees
+    aliases: []
+    spiir_map:
+      - Babyudstyr
+      - Institution
+
+  - name: finance
+    description: Bank fees, interest, loans, savings and taxes
+    aliases: []
+    spiir_map:
+      - Bankgebyrer
+      - Udlånsrenter
+      - Studielån
+      - Anden opsparing
+      - Restskat
+      - Overskydende skat
+      - Bøder & afgifter
+      - Offentligt gebyr
+      - Forbrugslån
+      - Værdipapirshandel
+
+  - name: income
+    description: Salary, benefits, child support and other income
+    aliases: []
+    spiir_map:
+      - Løn
+      - Anden indkomst
+      - Dagpenge/overførselsindkomst
+      - Feriepenge
+      - Renteindtægter
+      - Udbytte & afkast
+      - Børnepenge
+
+  - name: gifts
+    description: Gifts and charitable donations
+    aliases: []
+    spiir_map:
+      - Gaver & velgørenhed
+
+  - name: other
+    description: Miscellaneous personal expenses not fitting other categories
+    aliases: []
+    spiir_map:
+      - Andet privatforbrug
+      - Tobak & alkohol
+      - Serviceydelser & rådgivning
+      - Højskole- & kursusophold
