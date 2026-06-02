@@ -1,4 +1,4 @@
-"""Parser for Landsskatteretten Sparekasse (LSB) bank export formats.
+"""Parser for Lån og Spar Bank (LSB) bank export formats.
 
 LSB exports three CSV variants, all semicolon-separated with Danish number
 formatting and no header row:
