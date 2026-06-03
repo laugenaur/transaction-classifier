@@ -6,6 +6,7 @@ __pycache__/
 # Data
 data/raw/
 data/processed/
+data/export/
 data/labeled/
 data/export from spiir/
 
