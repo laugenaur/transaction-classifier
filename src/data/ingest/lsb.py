@@ -96,6 +96,8 @@ def parse_lsb(path: str | Path) -> pd.DataFrame:
 
     df["date"] = df["date"].apply(parse_danish_date)
     df["amount"] = df["amount"].apply(parse_danish_amount)
-    df["description"] = df["description"].apply(clean_description)
+    df["description"] = df["description"].apply(
+        lambda t: clean_description(t, strip_lsb_boilerplate=True)
+    )
 
     return df[OUTPUT_COLS].reset_index(drop=True)

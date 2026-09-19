@@ -29,9 +29,23 @@ manual_review_patterns:
 # Raise to route more conservatively; lower to accept more auto-labels.
 inference_confidence_threshold: 0.70
 
+# sure.am parent categories — import these first so child categories resolve.
+sure_am_parents:
+  - name: Food & Drink
+    color: "#f97316"
+    icon: utensils
+  - name: Income
+    color: "#22c55e"
+    icon: trending-up
+
 categories:
   - name: groceries
     description: Supermarkets, food stores and convenience stores
+    sure_am:
+      name: Groceries
+      parent: Food & Drink
+      color: "#65a30d"
+      icon: shopping-basket
     aliases:
       - netto
       - rema
@@ -48,6 +62,11 @@ categories:
 
   - name: dining
     description: Restaurants, cafes, canteens, takeaway and fast food
+    sure_am:
+      name: Dining
+      parent: Food & Drink
+      color: "#dc2626"
+      icon: chef-hat
     aliases:
       - restaurant
       - cafe
@@ -61,6 +80,10 @@ categories:
 
   - name: transport
     description: Public transport, fuel, parking, vehicles and vehicle expenses
+    sure_am:
+      name: Transport
+      color: "#3b82f6"
+      icon: car
     aliases:
       - movia
       - dsb
@@ -82,6 +105,10 @@ categories:
 
   - name: housing
     description: Rent, mortgage, utilities, renovation and home furnishings
+    sure_am:
+      name: Housing
+      color: "#7c3aed"
+      icon: home
     aliases:
       - husleje
     spiir_map:
@@ -94,6 +121,10 @@ categories:
 
   - name: shopping
     description: Clothing, electronics, hobbies and leisure goods
+    sure_am:
+      name: Shopping
+      color: "#ec4899"
+      icon: shopping-bag
     aliases:
       - zalando
       - h&m
@@ -106,6 +137,10 @@ categories:
 
   - name: health
     description: Pharmacy, medical treatment and personal care
+    sure_am:
+      name: Health
+      color: "#14b8a6"
+      icon: heart-pulse
     aliases:
       - apotek
     spiir_map:
@@ -116,6 +151,10 @@ categories:
 
   - name: entertainment
     description: Culture, sports, leisure activities and travel
+    sure_am:
+      name: Entertainment
+      color: "#f59e0b"
+      icon: music
     aliases:
       - ticketmaster
     spiir_map:
@@ -128,6 +167,10 @@ categories:
 
   - name: subscriptions
     description: Digital subscriptions, streaming and phone/internet plans
+    sure_am:
+      name: Subscriptions
+      color: "#6366f1"
+      icon: tv
     aliases:
       - netflix
       - spotify
@@ -143,6 +186,10 @@ categories:
 
   - name: memberships
     description: Union fees, unemployment insurance and associations
+    sure_am:
+      name: Memberships
+      color: "#8b5cf6"
+      icon: users
     aliases:
       - a-kasse
       - fagforening
@@ -152,6 +199,10 @@ categories:
 
   - name: insurance
     description: Home, contents, life, health and vehicle insurance
+    sure_am:
+      name: Insurance
+      color: "#64748b"
+      icon: shield
     aliases: []
     spiir_map:
       - Husforsikring
@@ -163,6 +214,10 @@ categories:
 
   - name: children
     description: Baby products, childcare and institution fees
+    sure_am:
+      name: Children
+      color: "#f472b6"
+      icon: baby
     aliases: []
     spiir_map:
       - Babyudstyr
@@ -170,6 +225,10 @@ categories:
 
   - name: finance
     description: Bank fees, interest, loans, savings and taxes
+    sure_am:
+      name: Finance
+      color: "#94a3b8"
+      icon: landmark
     aliases: []
     spiir_map:
       - Bankgebyrer
@@ -185,6 +244,11 @@ categories:
 
   - name: income
     description: Salary, benefits, child support and other income
+    sure_am:
+      name: Salary
+      parent: Income
+      color: "#22c55e"
+      icon: briefcase
     aliases: []
     spiir_map:
       - Løn
@@ -197,12 +261,20 @@ categories:
 
   - name: gifts
     description: Gifts and charitable donations
+    sure_am:
+      name: Gifts & Charity
+      color: "#e879f9"
+      icon: gift
     aliases: []
     spiir_map:
       - Gaver & velgørenhed
 
   - name: other
     description: Miscellaneous personal expenses not fitting other categories
+    sure_am:
+      name: Other
+      color: "#9ca3af"
+      icon: circle-help
     aliases: []
     spiir_map:
       - Andet privatforbrug

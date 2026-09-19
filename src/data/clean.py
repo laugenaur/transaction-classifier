@@ -18,7 +18,23 @@ def parse_danish_date(s: str) -> pd.Timestamp:
     return pd.to_datetime(s, format="%d-%m-%Y")
 
 
-def clean_description(text: str) -> str:
+# LSB raw exports prefix card payments and direct debits with these strings.
+# Stripping them recovers the merchant name the model was trained to recognise.
+_LSB_PREFIXES = re.compile(
+    r"^(kontaktløs dankort|dankort-køb|visa/dankort|betalingsservice)\s+",
+    re.IGNORECASE,
+)
+# LSB appends transaction reference codes that carry no category signal.
+_LSB_SUFFIXES = re.compile(
+    r"\s+(nota|notanr|aftalenr\.?)\s*[a-z0-9]+$",
+    re.IGNORECASE,
+)
+
+
+def clean_description(text: str, strip_lsb_boilerplate: bool = False) -> str:
     text = str(text).lower().strip()
-    text = re.sub(r"\s+", " ", text)
+    if strip_lsb_boilerplate:
+        text = _LSB_PREFIXES.sub("", text)
+        text = _LSB_SUFFIXES.sub("", text)
+    text = re.sub(r"\s+", " ", text).strip()
     return text
